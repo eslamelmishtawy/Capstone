@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "529589779935",
+    "firebase_url": "https://chattous-c91ca.firebaseio.com",
+    "project_id": "chattous-c91ca",
+    "storage_bucket": "chattous-c91ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529589779935:android:cfbaac69a6f3ab29",
+        "android_client_info": {
+          "package_name": "com.example.android.chattous"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529589779935-jbqpjth9krvbij022f2mekhtejpb8kgp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.chattous",
+            "certificate_hash": "4527ba567d6faba4ab4c0413786e786cf3cf1656"
+          }
+        },
+        {
+          "client_id": "529589779935-1tdqeu3uud4nnq8e35bvn51ofiga0ucv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWc9Oes6DHIOyAm-bii6CYEF_k7El8yBo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529589779935-1tdqeu3uud4nnq8e35bvn51ofiga0ucv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
