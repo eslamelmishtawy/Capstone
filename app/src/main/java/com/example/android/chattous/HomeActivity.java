@@ -2,7 +2,7 @@ package com.example.android.chattous;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.net.wifi.hotspot2.pps.HomeSp;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,8 +37,7 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HomeActivity extends AppCompatActivity
-{
+public class HomeActivity extends AppCompatActivity {
     CircleImageView imageProfile;
     TextView mUsername;
     Dialog dialog;
@@ -79,10 +77,10 @@ public class HomeActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 mUsername.setText(user.getUsername());
-                if(user.getImageURL().equals("default")){
+                if (user.getImageURL().equals("default")) {
                     imageProfile.setImageResource(R.mipmap.ic_launcher);
-                }else{
-                    Glide.with(HomeActivity.this).load(user.getImageURL()).into(imageProfile);
+                } else {
+                    Glide.with(getApplicationContext()).load(user.getImageURL()).into(imageProfile);
 
                 }
             }
@@ -92,7 +90,6 @@ public class HomeActivity extends AppCompatActivity
 
             }
         });
-
 
 
     }
@@ -105,17 +102,15 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.logout) {
+        if (item.getItemId() == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(HomeActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return true;
-        }
-        else if(item.getItemId() == R.id.profile){
+        } else if (item.getItemId() == R.id.profile) {
             startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
             finish();
             return true;
-        }
-        else if(item.getItemId() == R.id.broadcast){
+        } else if (item.getItemId() == R.id.broadcast) {
             dialog = new Dialog(HomeActivity.this);
             dialog.setContentView(R.layout.dialog_template);
 
@@ -130,10 +125,10 @@ public class HomeActivity extends AppCompatActivity
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(t.equals( "")){
+                    if (t.equals("")) {
                         Toast.makeText(HomeActivity.this, "Write a message", Toast.LENGTH_SHORT).show();
 
-                    }else{
+                    } else {
                         String broadcastMessage = t.getText().toString();
                         sendBroadcastMessage(firebaseUser.getUid(), broadcastMessage);
                         dialog.cancel();
@@ -148,16 +143,16 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    private void sendBroadcastMessage(String sender,  String message){
+    private void sendBroadcastMessage(String sender, String message) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        HashMap<String, Object> hashMap  =  new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
         hashMap.put("message", message);
         reference.child("Broadcast Messages").push().setValue(hashMap);
 
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter{
+    class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private ArrayList<Fragment> fragments;
         private ArrayList<String> titles;
@@ -179,7 +174,8 @@ public class HomeActivity extends AppCompatActivity
         public int getCount() {
             return fragments.size();
         }
-        public void addFragment(Fragment fragment, String title){
+
+        public void addFragment(Fragment fragment, String title) {
             fragments.add(fragment);
             titles.add(title);
 
@@ -192,7 +188,7 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    private void status(String status){
+    private void status(String status) {
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("status", status);

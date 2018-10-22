@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'eslam'
             keyPassword '456789'
-            storeFile file('C:/Users/eslam/Desktop/android.jks')
+            storeFile file("$rootDir/android.jks")
             storePassword '123456'
         }
     }

@@ -1,7 +1,6 @@
 package com.example.android.chattous.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.android.chattous.MessageActivity;
 import com.example.android.chattous.Model.Chat;
 import com.example.android.chattous.R;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="300dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -12,13 +12,13 @@
         android:id="@+id/broadcast_message"
 
         />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/send"
         android:id="@+id/send_broadcast"
         android:gravity="center"
-        android:layout_marginTop="5dp"
-        />
+        android:layout_marginTop="5dp" />
 
 </LinearLayout>

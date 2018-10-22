@@ -3,18 +3,14 @@ package com.example.android.chattous.Widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.bumptech.glide.Glide;
 import com.example.android.chattous.MainActivity;
 import com.example.android.chattous.Model.Chat;
 import com.example.android.chattous.Model.User;
-import com.example.android.chattous.ProfileActivity;
 import com.example.android.chattous.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
-import java.util.Random;
 
 public class MyWidgetProvider extends AppWidgetProvider {
 
@@ -48,7 +43,7 @@ public class MyWidgetProvider extends AppWidgetProvider {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if(user.getUsername() != null)
+                if (user.getUsername() != null)
                     views.setTextViewText(R.id.username, user.getUsername());
                 views.setTextViewText(R.id.image_profile, user.getImageURL());
                 views.setOnClickPendingIntent(R.id.username, pendingIntent);

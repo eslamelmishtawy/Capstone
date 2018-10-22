@@ -2,10 +2,13 @@ package com.example.android.chattous.Model;
 
 public class Chatlist {
     public String id;
-    public  Chatlist(String id){
+
+    public Chatlist(String id) {
         this.id = id;
     }
-    public Chatlist(){}
+
+    public Chatlist() {
+    }
 
     public String getId() {
         return id;

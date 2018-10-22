@@ -6,7 +6,7 @@ public class User {
     private String imageURL;
     private String status;
 
-    public User(String id, String username, String imageURL, String status){
+    public User(String id, String username, String imageURL, String status) {
 
         this.id = id;
         this.username = username;
@@ -23,7 +23,7 @@ public class User {
         this.status = status;
     }
 
-    public User(){
+    public User() {
 
     }
 

@@ -1,7 +1,5 @@
 package com.example.android.chattous.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -28,7 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class UsersFragment extends Fragment {
 
@@ -74,13 +71,13 @@ public class UsersFragment extends Fragment {
         return view;
     }
 
-    private void search(String s){
+    private void search(String s) {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").startAt(s).endAt(s+"\uf8ff");
+        Query query = FirebaseDatabase.getInstance().getReference("Users").orderByChild("username").startAt(s).endAt(s + "\uf8ff");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(!searchUsers.getText().toString().equals("")) {
+                if (!searchUsers.getText().toString().equals("")) {
                     users.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);
@@ -93,7 +90,7 @@ public class UsersFragment extends Fragment {
 
                     userAdapter = new UserAdapter(getContext(), users, false);
                     recyclerView.setAdapter(userAdapter);
-                }else{
+                } else {
                     readUsers();
                 }
             }
@@ -105,7 +102,7 @@ public class UsersFragment extends Fragment {
         });
     }
 
-    public void readUsers(){
+    public void readUsers() {
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -115,12 +112,12 @@ public class UsersFragment extends Fragment {
                 users.clear();
 
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
 
                     assert user != null;
                     assert firebaseUser != null;
-                    if(!user.getId().equals(firebaseUser.getUid())){
+                    if (!user.getId().equals(firebaseUser.getUid())) {
                         users.add(user);
                     }
                 }

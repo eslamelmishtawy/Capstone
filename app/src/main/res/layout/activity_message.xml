@@ -8,7 +8,6 @@
     android:background="@color/Grey">
 
 
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/bar_layout"
         android:layout_width="match_parent"
@@ -21,13 +20,13 @@
             android:id="@+id/toolbar"
             android:background="@color/colorPrimary"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/MenuStyle"
-            >
+            app:popupTheme="@style/MenuStyle">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/image_profile"
-                />
+                android:id="@+id/image_profile" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,19 +35,18 @@
                 android:text="@string/username"
                 android:textColor="@color/Grey"
                 android:textStyle="bold"
-                android:layout_marginStart="25dp"
-                />
+                android:layout_marginStart="25dp" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recycler_view"
-            android:layout_below="@id/bar_layout"
-            android:layout_above="@id/bottom"
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_view"
+        android:layout_below="@id/bar_layout"
+        android:layout_above="@id/bottom"
 
-            />
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -56,19 +54,18 @@
         android:padding="5dp"
         android:background="#fff"
         android:layout_alignParentBottom="true"
-        android:id="@+id/bottom"
-        >
+        android:id="@+id/bottom">
 
-       <EditText
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:id="@+id/text_message"
-           android:hint="@string/edittexthint"
-           android:layout_toStartOf="@id/send_btn"
-           android:layout_centerVertical="true"
-           android:background="@android:color/transparent"
-           android:layout_toLeftOf="@id/send_btn" />
-        
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_message"
+            android:hint="@string/edittexthint"
+            android:layout_toStartOf="@id/send_btn"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:layout_toLeftOf="@id/send_btn" />
+
         <ImageButton
             android:contentDescription="@string/imagebutton"
             android:layout_width="40dp"
@@ -76,7 +73,7 @@
             android:id="@+id/send_btn"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/ic_action_name"/>
+            android:background="@drawable/ic_action_name" />
     </RelativeLayout>
 
 

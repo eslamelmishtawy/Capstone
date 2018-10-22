@@ -1,9 +1,9 @@
 package com.example.android.chattous;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -45,22 +45,22 @@ public class LoginActivity extends AppCompatActivity {
                 String email = mEmail.getText().toString();
                 String pass = mPassword.getText().toString();
 
-                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)){
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
                     Toast.makeText(LoginActivity.this, "All fields are required!", Toast.LENGTH_SHORT).show();
 
-                }else{
-                    auth.signInWithEmailAndPassword(email,pass)
+                } else {
+                    auth.signInWithEmailAndPassword(email, pass)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
-                                    }else{
+                                    } else {
                                         Toast.makeText(LoginActivity.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
-                                        }
+                                    }
                                 }
                             });
                 }

@@ -4,10 +4,10 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ import com.example.android.chattous.Model.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,8 +51,6 @@ public class ProfileActivity extends AppCompatActivity {
     private StorageTask uploadTask;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +70,10 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 mUsername.setText(user.getUsername());
-                if(user.getImageURL().equals("default")){
+                if (user.getImageURL().equals("default")) {
                     imageProfile.setImageResource(R.mipmap.ic_launcher);
-                }else{
-                    Glide.with(ProfileActivity.this).load(user.getImageURL()).into(imageProfile);
+                } else {
+                    Glide.with(getApplicationContext()).load(user.getImageURL()).into(imageProfile);
 
                 }
             }
@@ -96,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    private void openImage(){
+    private void openImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -105,36 +104,55 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private String getFileExtension(Uri uri){
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imageUri = data.getData();
+
+        if (uploadTask != null && uploadTask.isInProgress()) {
+            Toast.makeText(ProfileActivity.this, R.string.uploadinprog, Toast.LENGTH_SHORT).show();
+
+        } else {
+            uploadImage();
+        }
+    }
+
+    private String getFileExtension(Uri uri) {
         ContentResolver contentResolver = ProfileActivity.this.getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-    private void uploadImage(){
+    private void uploadImage() {
         final ProgressDialog pd = new ProgressDialog(ProfileActivity.this);
         pd.setMessage("Uploading...");
         pd.show();
 
 
-        if(imageUri != null){
+        if (imageUri != null) {
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-            uploadTask =fileReference.putFile(imageUri);
+            uploadTask = fileReference.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        }
+                    });
             uploadTask.continueWith(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                  if(!task.isSuccessful()){
-                    throw task.getException();
-                }
-                return  fileReference.getDownloadUrl();
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return fileReference.getDownloadUrl();
                 }
 
 
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
-                    if(task.isSuccessful()){
-                        Uri downloadUri = task.getResult();
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = Uri.parse(String.valueOf(task.getResult()));
                         String mUri = downloadUri.toString();
                         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
@@ -142,8 +160,8 @@ public class ProfileActivity extends AppCompatActivity {
                         map.put("imageURL", mUri);
                         reference.updateChildren(map);
                         pd.dismiss();
-                    }else{
-                        Toast.makeText(ProfileActivity.this, "Can't Upload", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ProfileActivity.this, R.string.cantupload, Toast.LENGTH_SHORT).show();
                         pd.dismiss();
                     }
                 }
@@ -158,25 +176,10 @@ public class ProfileActivity extends AppCompatActivity {
             });
 
 
-
-        }else{
-            Toast.makeText(ProfileActivity.this,"No Image selected", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(ProfileActivity.this, R.string.noimage, Toast.LENGTH_SHORT).show();
 
         }
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-            imageUri = data.getData();
-
-            if(uploadTask != null && uploadTask.isInProgress()){
-                Toast.makeText(ProfileActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
-
-            }else{
-                uploadImage();
-            }
-        }
 
 }

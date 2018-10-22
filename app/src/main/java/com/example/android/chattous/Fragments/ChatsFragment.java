@@ -1,6 +1,5 @@
 package com.example.android.chattous.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -11,12 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.chattous.Adapters.UserAdapter;
-import com.example.android.chattous.Model.Chat;
 import com.example.android.chattous.Model.Chatlist;
 import com.example.android.chattous.Model.User;
 import com.example.android.chattous.Notifications.Token;
 import com.example.android.chattous.R;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -59,7 +56,7 @@ public class ChatsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 usersList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chatlist chatlist = snapshot.getValue(Chatlist.class);
                     usersList.add(chatlist);
                 }
@@ -73,10 +70,7 @@ public class ChatsFragment extends Fragment {
         });
 
 
-
         updateToken(FirebaseInstanceId.getInstance().getToken());
-
-
 
 
         return view;
@@ -84,26 +78,24 @@ public class ChatsFragment extends Fragment {
     }
 
 
-
-
-    private void updateToken(String token){
+    private void updateToken(String token) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
         Token token1 = new Token(token);
         reference.child(firebaseUser.getUid()).setValue(token1);
     }
 
 
-    private void chatList(){
+    private void chatList() {
         users = new ArrayList<>();
         reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 users.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     User user = snapshot.getValue(User.class);
-                    for(Chatlist chatlist : usersList){
-                        if(user.getId().equals(chatlist.getId())){
+                    for (Chatlist chatlist : usersList) {
+                        if (user.getId().equals(chatlist.getId())) {
                             users.add(user);
                         }
                     }
