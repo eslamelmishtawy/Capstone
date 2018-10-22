@@ -21,13 +21,15 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image_profile"
         android:layout_marginLeft="5dp"
-        android:text="Hello"
+        android:text="@string/hello"
         android:padding="8dp"
         android:id="@+id/show_message"
         android:textSize="18sp"
         android:layout_alignParentEnd="true"
         android:textColor="@color/Grey"
         android:background="@drawable/background_right"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/image_profile" />
 
 </RelativeLayout>

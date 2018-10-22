@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.android.chattous.HomeActivity;
+import com.example.android.chattous.MainActivity;
 import com.example.android.chattous.MessageActivity;
 import com.example.android.chattous.Model.Chat;
 import com.example.android.chattous.Model.User;
@@ -61,7 +63,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         if(isChat){
 
-            lastMessage(user.getId(), viewHolder.lastMessage);
+            if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+
+                lastMessage(user.getId(), viewHolder.lastMessage);
+            }
 
             if(user.getStatus().equals("online")){
                 viewHolder.status_on.setVisibility(View.VISIBLE);
@@ -111,21 +116,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private void lastMessage(final String userid, final TextView lastmsg){
         lastMsg = "test";
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        final String firebaseUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Chat chat = snapshot.getValue(Chat.class);
-                    if(chat.getReciver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)
-                            || chat.getSender().equals(firebaseUser.getUid()) && chat.getReciver().equals(userid)){
+
+
+
+                    if(chat.getReciver().equals(firebaseUser) && chat.getSender().equals(userid)
+                            || chat.getSender().equals(firebaseUser) && chat.getReciver().equals(userid)){
                         lastMsg = chat.getMessage();
                     }
                 }
                 switch (lastMsg){
                     case "default":
-                        lastmsg.setText("No Message");
+                        lastmsg.setText(R.string.nomessage);
                         break;
                         default:
                             lastmsg.setText(lastMsg);

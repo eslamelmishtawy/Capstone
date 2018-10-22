@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
                 android:layout_marginLeft="25dp"
-                android:text="Username"
+                android:text="@string/username"
                 android:textColor="@color/Grey"
                 android:textStyle="bold"
                 android:layout_marginStart="25dp"
@@ -63,12 +63,14 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:id="@+id/text_message"
-           android:hint="Type your message here.."
-           android:layout_toLeftOf="@id/send_btn"
+           android:hint="@string/edittexthint"
+           android:layout_toStartOf="@id/send_btn"
            android:layout_centerVertical="true"
-           android:background="@android:color/transparent"/>
+           android:background="@android:color/transparent"
+           android:layout_toLeftOf="@id/send_btn" />
         
         <ImageButton
+            android:contentDescription="@string/imagebutton"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/send_btn"

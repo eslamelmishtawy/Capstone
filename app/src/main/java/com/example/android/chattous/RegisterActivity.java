@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Register");
+        getSupportActionBar().setTitle(R.string.register);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mUsername = findViewById(R.id.username);
@@ -52,10 +52,10 @@ public class RegisterActivity extends AppCompatActivity {
                 String pass = mPassword.getText().toString();
 
                 if(TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)){
-                    Toast.makeText(RegisterActivity.this, "All fields are required!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.allfieldreq, Toast.LENGTH_SHORT).show();
 
                 }else if(email.length() < 6){
-                    Toast.makeText(RegisterActivity.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.leastcharpass, Toast.LENGTH_SHORT).show();
                 }else{
                     registers(username,email,pass);
                 }
@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
                         }else{
-                            Toast.makeText(RegisterActivity.this, "You can't register with this email or password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, R.string.cantreg, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

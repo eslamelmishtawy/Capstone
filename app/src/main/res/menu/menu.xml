@@ -4,17 +4,17 @@
     >
     <item
         android:id="@+id/logout"
-        android:title="Logout"
+        android:title="@string/logout"
         app:showAsAction="never"
         ></item>
     <item
         android:id="@+id/profile"
-        android:title="Profile"
+        android:title="@string/profile"
         app:showAsAction="never"></item>
 
     <item
         android:id="@+id/broadcast"
-        android:title="BroadCast"
+        android:title="@string/broadcast"
         app:showAsAction="never"></item>
 
 </menu>

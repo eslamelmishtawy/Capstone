@@ -8,14 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
-        android:hint="Send a broadcast message"
+        android:hint="@string/sendbroadcast"
         android:id="@+id/broadcast_message"
 
         />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send"
+        android:text="@string/send"
         android:id="@+id/send_broadcast"
         android:gravity="center"
         android:layout_marginTop="5dp"

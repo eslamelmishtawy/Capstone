@@ -8,6 +8,30 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
 
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="broadcast">Broadcast</string>
+    <string name="allfieldreq">All fields are required!</string>
+    <string name="leastcharpass">Password must be at least 6 characters</string>
+
+    <string name="cantreg">You can\'t register with this email or password</string>
+  <string name="profilewidget">Active profile</string>
+
+    <string name="search">Search...</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="nomessage">No Message</string>
+
+    <string name="imagebutton">Image Button</string>
+
+    <string name="send">Send</string>
+
+    <string name="sendbroadcast">Send a broadcast message</string>
+
+    <string name="hello">Hello</string>
+    <string name="edittexthint">Type your message here..</string>
+
     <string name="title_collection_widget">Chats</string>
 
 

@@ -12,6 +12,7 @@ import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
 import com.example.android.chattous.MainActivity;
+import com.example.android.chattous.Model.Chat;
 import com.example.android.chattous.Model.User;
 import com.example.android.chattous.ProfileActivity;
 import com.example.android.chattous.R;
@@ -23,9 +24,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
 import java.util.Random;
 
 public class MyWidgetProvider extends AppWidgetProvider {
+
+    List<Chat> chats;
 
     static FirebaseUser firebaseUser;
     static DatabaseReference reference;
@@ -44,9 +48,10 @@ public class MyWidgetProvider extends AppWidgetProvider {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                views.setTextViewText(R.id.appwidget_text, user.getUsername());
-
-                views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
+                if(user.getUsername() != null)
+                    views.setTextViewText(R.id.username, user.getUsername());
+                views.setTextViewText(R.id.image_profile, user.getImageURL());
+                views.setOnClickPendingIntent(R.id.username, pendingIntent);
 
                 // Instruct the widget manager to update the widget
                 appWidgetManager.updateAppWidget(appWidgetId, views);
