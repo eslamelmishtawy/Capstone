@@ -35,6 +35,13 @@ public class UsersFragment extends Fragment {
 
     EditText searchUsers;
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntArray("ARTICLE_SCROLL_POSITION",
+                new int[]{recyclerView.getScrollX(), recyclerView.getScrollY()});
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +51,14 @@ public class UsersFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        final int[] position = savedInstanceState.getIntArray("ARTICLE_SCROLL_POSITION");
+        if (position != null)
+            recyclerView.post(new Runnable() {
+                public void run() {
+                    recyclerView.scrollTo(position[0], position[1]);
+                }
+            });
 
         users = new ArrayList<>();
 

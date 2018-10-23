@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 String pass = mPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
-                    Toast.makeText(LoginActivity.this, "All fields are required!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.allfieldreq, Toast.LENGTH_SHORT).show();
 
                 } else {
                     auth.signInWithEmailAndPassword(email, pass)
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     } else {
-                                        Toast.makeText(LoginActivity.this, "Email or Password incorrect", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, R.string.epi, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

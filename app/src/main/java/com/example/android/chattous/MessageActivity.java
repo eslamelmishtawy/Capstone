@@ -64,9 +64,18 @@ public class MessageActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntArray("ARTICLE_SCROLL_POSITION",
+                new int[]{recyclerView.getScrollX(), recyclerView.getScrollY()});
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -89,6 +98,14 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        final int[] position = savedInstanceState.getIntArray("ARTICLE_SCROLL_POSITION");
+        if (position != null)
+            recyclerView.post(new Runnable() {
+                public void run() {
+                    recyclerView.scrollTo(position[0], position[1]);
+                }
+            });
+
         imageProfile = findViewById(R.id.image_profile);
         username = findViewById(R.id.username);
         imageButton = findViewById(R.id.send_btn);
@@ -103,7 +120,7 @@ public class MessageActivity extends AppCompatActivity {
                 noti = true;
                 String msg = editText.getText().toString();
                 if (msg.equals("")) {
-                    Toast.makeText(MessageActivity.this, "TYPE A MESSAGE!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MessageActivity.this, R.string.typemsg, Toast.LENGTH_SHORT).show();
                 } else {
                     sendMessage(firebaseUser.getUid(), userId, msg);
                 }
@@ -200,7 +217,7 @@ public class MessageActivity extends AppCompatActivity {
                                 public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
                                     if (response.code() == 200) {
                                         if (response.body().success != 1) {
-                                            Toast.makeText(MessageActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(MessageActivity.this, R.string.fail, Toast.LENGTH_SHORT).show();
 
                                         }
                                     }

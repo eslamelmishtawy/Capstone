@@ -30,7 +30,11 @@
     <string name="imagebutton">Image Button</string>
 
     <string name="send">Send</string>
+    <string name="writemsg">Write a message</string>
+    <string name="typemsg">TYPE A MESSAGE!!!</string>
 
+    <string name="fail">Failed</string>
+    <string name="epi">Email or Password incorrect</string>
 
     <string name="authority">com.example.android.chattous.authority</string>
     <string name="sendbroadcast">Send a broadcast message</string>

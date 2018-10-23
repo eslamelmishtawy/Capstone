@@ -126,7 +126,7 @@ public class HomeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (t.equals("")) {
-                        Toast.makeText(HomeActivity.this, "Write a message", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeActivity.this, R.string.writemsg, Toast.LENGTH_SHORT).show();
 
                     } else {
                         String broadcastMessage = t.getText().toString();
