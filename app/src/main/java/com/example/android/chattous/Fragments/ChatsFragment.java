@@ -60,13 +60,15 @@ public class ChatsFragment extends Fragment {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         usersList = new ArrayList<>();
 
-        final int[] position = savedInstanceState.getIntArray("ARTICLE_SCROLL_POSITION");
-        if (position != null)
-            recyclerView.post(new Runnable() {
-                public void run() {
-                    recyclerView.scrollTo(position[0], position[1]);
-                }
-            });
+        if(savedInstanceState != null) {
+            final int[] position = savedInstanceState.getIntArray("ARTICLE_SCROLL_POSITION");
+            if (position != null)
+                recyclerView.post(new Runnable() {
+                    public void run() {
+                        recyclerView.scrollTo(position[0], position[1]);
+                    }
+                });
+        }
 
         reference = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {

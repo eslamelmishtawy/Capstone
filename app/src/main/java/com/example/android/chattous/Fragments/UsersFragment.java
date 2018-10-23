@@ -52,13 +52,16 @@ public class UsersFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        final int[] position = savedInstanceState.getIntArray("ARTICLE_SCROLL_POSITION");
-        if (position != null)
-            recyclerView.post(new Runnable() {
-                public void run() {
-                    recyclerView.scrollTo(position[0], position[1]);
-                }
-            });
+        if(savedInstanceState != null) {
+
+            final int[] position = savedInstanceState.getIntArray("ARTICLE_SCROLL_POSITION");
+            if (position != null)
+                recyclerView.post(new Runnable() {
+                    public void run() {
+                        recyclerView.scrollTo(position[0], position[1]);
+                    }
+                });
+        }
 
         users = new ArrayList<>();
 

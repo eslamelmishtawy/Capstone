@@ -97,14 +97,16 @@ public class MessageActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+        if(savedInstanceState != null) {
+            final int[] position = savedInstanceState.getIntArray("ARTICLE_SCROLL_POSITION");
+            if (position != null)
+                recyclerView.post(new Runnable() {
+                    public void run() {
+                        recyclerView.scrollTo(position[0], position[1]);
+                    }
+                });
 
-        final int[] position = savedInstanceState.getIntArray("ARTICLE_SCROLL_POSITION");
-        if (position != null)
-            recyclerView.post(new Runnable() {
-                public void run() {
-                    recyclerView.scrollTo(position[0], position[1]);
-                }
-            });
+        }
 
         imageProfile = findViewById(R.id.image_profile);
         username = findViewById(R.id.username);
